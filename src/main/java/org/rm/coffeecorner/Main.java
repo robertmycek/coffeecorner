@@ -23,28 +23,28 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        String input = new String(System.in.readAllBytes(), StandardCharsets.UTF_8);
-        String receipt = new Main(input).generateReceipt();
+        var input = new String(System.in.readAllBytes(), StandardCharsets.UTF_8);
+        var receipt = new Main(input).generateReceipt();
         System.out.print(receipt);
         System.out.flush();
     }
 
     public String generateReceipt() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
         builder.append("Charlene's Coffee Corner").append('\n');
         builder.append("-".repeat(46)).append('\n');
 
-        Map<String, Long> countsPerProduct = products.stream()
+        var countsPerProduct = products.stream()
                 .collect(groupingBy(Function.identity(), LinkedHashMap::new, counting()));
 
-        BigDecimal total = BigDecimal.ZERO;
+        var total = BigDecimal.ZERO;
 
-        for (Map.Entry<String, Long> countPerProduct : countsPerProduct.entrySet()) {
-            String product = countPerProduct.getKey();
-            long count = countPerProduct.getValue();
-            BigDecimal unitPrice = prices.get(product);
-            BigDecimal price = unitPrice.multiply(new BigDecimal(count));
+        for (var countPerProduct : countsPerProduct.entrySet()) {
+            var product = countPerProduct.getKey();
+            var count = countPerProduct.getValue();
+            var unitPrice = prices.get(product);
+            var price = unitPrice.multiply(new BigDecimal(count));
             builder.append(String.format((Locale) null, "%-30.30s %2d x%4.2f %6.2f", product, count, unitPrice, price)).append('\n');
             total = total.add(price);
         }

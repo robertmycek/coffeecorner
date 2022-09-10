@@ -31,7 +31,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 small coffee                    1 x2.50   2.50
@@ -47,7 +47,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 small coffee                    1 x2.50   2.50
@@ -67,7 +67,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 medium coffee                   1 x3.00   3.00
@@ -83,7 +83,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 large coffee                    1 x3.50   3.50
@@ -99,7 +99,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 freshly squeezed orange juice   1 x3.95   3.95
@@ -115,7 +115,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 bacon roll                      1 x4.50   4.50
@@ -131,7 +131,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        String expected = """
+        var expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 small coffee                    3 x2.50   7.50
