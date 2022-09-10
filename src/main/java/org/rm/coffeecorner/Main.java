@@ -26,21 +26,21 @@ public class Main {
     }
 
     public String generateReceipt() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
 
-        buffer.append("Charlene's Coffee Corner").append('\n');
-        buffer.append("-".repeat(46)).append('\n');
+        builder.append("Charlene's Coffee Corner").append('\n');
+        builder.append("-".repeat(46)).append('\n');
 
         BigDecimal total = BigDecimal.ZERO;
         for (String product : products) {
             BigDecimal price = prices.get(product);
             total = total.add(price);
-            buffer.append(String.format((Locale) null, "%-39.39s %6.2f", product, price)).append('\n');
+            builder.append(String.format((Locale) null, "%-39.39s %6.2f", product, price)).append('\n');
         }
 
-        buffer.append("-".repeat(46)).append('\n');
-        buffer.append(String.format((Locale) null, "%-35.35s %10.2f", "Total CHF", total));
+        builder.append("-".repeat(46)).append('\n');
+        builder.append(String.format((Locale) null, "%-35.35s %10.2f", "Total CHF", total));
 
-        return buffer.toString();
+        return builder.toString();
     }
 }
