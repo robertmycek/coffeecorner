@@ -3,6 +3,8 @@ package org.rm.coffeecorner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.*;
 
@@ -139,6 +141,39 @@ class MainTest {
                 large coffee                    1 x3.50   3.50
                 ----------------------------------------------
                 Total CHF                                17.00""";
+
+        assertEquals(expected, getOutput());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {",", ";", ":", "\n", "."})
+    void shouldSplitInputListBySeparator(String separator) throws IOException {
+        setInput("bacon roll" + separator + "bacon roll");
+
+        Main.main(new String[]{});
+
+        var expected = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                bacon roll                      2 x4.50   9.00
+                ----------------------------------------------
+                Total CHF                                 9.00""";
+
+        assertEquals(expected, getOutput());
+    }
+
+    @Test
+    void shouldStripInputAndRemoveEmptyVales() throws IOException {
+        setInput(",.;:\n  bacon roll    ,  bacon roll\n     ");
+
+        Main.main(new String[]{});
+
+        var expected = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                bacon roll                      2 x4.50   9.00
+                ----------------------------------------------
+                Total CHF                                 9.00""";
 
         assertEquals(expected, getOutput());
     }

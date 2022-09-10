@@ -19,7 +19,10 @@ public class Main {
     private final List<String> products;
 
     public Main(String input) {
-        this.products = Arrays.stream(Objects.requireNonNull(input).split(",")).collect(toList());
+        this.products = Arrays.stream(Objects.requireNonNull(input).split("[,.;:\\n]"))
+                .map(String::strip)
+                .filter(product -> product.length() > 0)
+                .collect(toList());
     }
 
     public static void main(String[] args) throws IOException {
