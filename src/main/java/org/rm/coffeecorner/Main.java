@@ -12,7 +12,8 @@ public class Main {
             "small coffee", new BigDecimal("2.50"),
             "medium coffee", new BigDecimal("3.00"),
             "large coffee", new BigDecimal("3.50"),
-            "freshly squeezed orange juice", new BigDecimal("3.95")
+            "freshly squeezed orange juice", new BigDecimal("3.95"),
+            "bacon roll", new BigDecimal("4.50")
     );
     private final List<String> products;
 
