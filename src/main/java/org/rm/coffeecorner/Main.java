@@ -11,7 +11,8 @@ public class Main {
     private final Map<String, BigDecimal> prices = Map.of(
             "small coffee", new BigDecimal("2.50"),
             "medium coffee", new BigDecimal("3.00"),
-            "large coffee", new BigDecimal("3.50")
+            "large coffee", new BigDecimal("3.50"),
+            "freshly squeezed orange juice", new BigDecimal("3.95")
     );
     private final List<String> products;
 
