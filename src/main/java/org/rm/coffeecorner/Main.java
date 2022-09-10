@@ -10,7 +10,8 @@ import static java.util.stream.Collectors.toList;
 public class Main {
     private final Map<String, BigDecimal> prices = Map.of(
             "small coffee", new BigDecimal("2.50"),
-            "medium coffee", new BigDecimal("3.00")
+            "medium coffee", new BigDecimal("3.00"),
+            "large coffee", new BigDecimal("3.50")
     );
     private final List<String> products;
 

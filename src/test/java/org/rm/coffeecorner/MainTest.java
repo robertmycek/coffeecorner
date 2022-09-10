@@ -43,7 +43,7 @@ class MainTest {
 
     @Test
     void shouldPrintReceiptForManyProducts() throws IOException {
-        setInput("small coffee,medium coffee");
+        setInput("small coffee,medium coffee,large coffee");
 
         Main.main(new String[]{});
 
@@ -52,8 +52,9 @@ class MainTest {
                 ----------------------------------------------
                 small coffee                              2.50
                 medium coffee                             3.00
+                large coffee                              3.50
                 ----------------------------------------------
-                Total CHF                                 5.50""";
+                Total CHF                                 9.00""";
 
         assertEquals(expected, getOutput());
     }
@@ -70,6 +71,21 @@ class MainTest {
                 medium coffee                             3.00
                 ----------------------------------------------
                 Total CHF                                 3.00""";
+
+        assertEquals(expected, getOutput());
+    }
+    @Test
+    void shouldPrintReceiptForLargeCoffee() throws IOException {
+        setInput("large coffee");
+
+        Main.main(new String[]{});
+
+        String expected = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                large coffee                              3.50
+                ----------------------------------------------
+                Total CHF                                 3.50""";
 
         assertEquals(expected, getOutput());
     }
