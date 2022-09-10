@@ -1,15 +1,17 @@
 package org.rm.coffeecorner;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
 public class Main {
+    private final Map<String, BigDecimal> prices = Map.of(
+            "small coffee", new BigDecimal("2.50"),
+            "medium coffee", new BigDecimal("3.00")
+    );
     private final List<String> products;
 
     public Main(String input) {
@@ -29,11 +31,15 @@ public class Main {
         buffer.append("Charlene's Coffee Corner").append('\n');
         buffer.append("-".repeat(46)).append('\n');
 
-        products.forEach(smallCoffee ->
-                buffer.append(String.format((Locale) null, "%-39.39s %6.2f", smallCoffee, 2.5)).append('\n'));
+        BigDecimal total = BigDecimal.ZERO;
+        for (String product : products) {
+            BigDecimal price = prices.get(product);
+            total = total.add(price);
+            buffer.append(String.format((Locale) null, "%-39.39s %6.2f", product, price)).append('\n');
+        }
 
         buffer.append("-".repeat(46)).append('\n');
-        buffer.append(String.format((Locale) null, "%-35.35s %10.2f", "Total CHF", 2.5 * products.size()));
+        buffer.append(String.format((Locale) null, "%-35.35s %10.2f", "Total CHF", total));
 
         return buffer.toString();
     }
