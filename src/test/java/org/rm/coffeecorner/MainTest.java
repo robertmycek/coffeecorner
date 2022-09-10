@@ -34,7 +34,7 @@ class MainTest {
         String expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                small coffee                              2.50
+                small coffee                    1 x2.50   2.50
                 ----------------------------------------------
                 Total CHF                                 2.50""";
 
@@ -50,11 +50,11 @@ class MainTest {
         String expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                small coffee                              2.50
-                medium coffee                             3.00
-                large coffee                              3.50
-                freshly squeezed orange juice             3.95
-                bacon roll                                4.50
+                small coffee                    1 x2.50   2.50
+                medium coffee                   1 x3.00   3.00
+                large coffee                    1 x3.50   3.50
+                freshly squeezed orange juice   1 x3.95   3.95
+                bacon roll                      1 x4.50   4.50
                 ----------------------------------------------
                 Total CHF                                17.45""";
 
@@ -70,7 +70,7 @@ class MainTest {
         String expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                medium coffee                             3.00
+                medium coffee                   1 x3.00   3.00
                 ----------------------------------------------
                 Total CHF                                 3.00""";
 
@@ -86,7 +86,7 @@ class MainTest {
         String expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                large coffee                              3.50
+                large coffee                    1 x3.50   3.50
                 ----------------------------------------------
                 Total CHF                                 3.50""";
 
@@ -102,7 +102,7 @@ class MainTest {
         String expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                freshly squeezed orange juice             3.95
+                freshly squeezed orange juice   1 x3.95   3.95
                 ----------------------------------------------
                 Total CHF                                 3.95""";
 
@@ -118,9 +118,27 @@ class MainTest {
         String expected = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                bacon roll                                4.50
+                bacon roll                      1 x4.50   4.50
                 ----------------------------------------------
                 Total CHF                                 4.50""";
+
+        assertEquals(expected, getOutput());
+    }
+
+    @Test
+    void shouldGroupTheSameProductOnReceipt() throws IOException {
+        setInput("small coffee,medium coffee,large coffee,small coffee,medium coffee,small coffee");
+
+        Main.main(new String[]{});
+
+        String expected = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                small coffee                    3 x2.50   7.50
+                medium coffee                   2 x3.00   6.00
+                large coffee                    1 x3.50   3.50
+                ----------------------------------------------
+                Total CHF                                17.00""";
 
         assertEquals(expected, getOutput());
     }
