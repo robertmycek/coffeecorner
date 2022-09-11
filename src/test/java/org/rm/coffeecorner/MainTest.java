@@ -255,6 +255,15 @@ class MainTest {
         assertEquals(expectedReceipt, getOutput());
     }
 
+    @Test
+    void shouldNotGenerateReceiptWhenAllProductAreUnknown() throws IOException {
+        setInput("iphone 14, keyboard");
+
+        Main.main(new String[]{});
+
+        assertEquals("", getOutput());
+    }
+
     @ParameterizedTest
     @MethodSource
     void shouldPrintReceiptForCoffeeWithExtras(String input, String expectedReceipt) throws IOException {

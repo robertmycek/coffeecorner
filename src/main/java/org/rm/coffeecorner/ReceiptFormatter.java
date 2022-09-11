@@ -25,6 +25,10 @@ public class ReceiptFormatter {
     }
 
     public String format() {
+        if (products.isEmpty()) {
+            return "";
+        }
+        
         var builder = new StringBuilder();
 
         builder.append("Charlene's Coffee Corner").append('\n');
