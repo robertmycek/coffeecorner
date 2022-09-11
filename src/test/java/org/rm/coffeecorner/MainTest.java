@@ -69,7 +69,7 @@ class MainTest {
         );
     }
 
-    private static Stream<Arguments> shouldPrintReceiptForCoffeeWithExtraMilk() {
+    private static Stream<Arguments> shouldPrintReceiptForCoffeeWithExtras() {
         return Stream.of(
                 Arguments.of(
                         "small coffee with extra milk",
@@ -98,6 +98,27 @@ class MainTest {
                                 ----------------------------------------------
                                 large coffee                    1 x3.50   3.50
                                 extra milk                      1 x0.30   0.30
+                                ----------------------------------------------
+                                Total CHF                                 3.80"""
+                ),
+                Arguments.of(
+                        "large coffee with foamed milk",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                large coffee                    1 x3.50   3.50
+                                foamed milk                     1 x0.50   0.50
+                                ----------------------------------------------
+                                Total CHF                                 4.00"""
+                ),
+                Arguments.of(
+                        "medium coffee with extra milk and foamed milk",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                medium coffee                   1 x3.00   3.00
+                                extra milk                      1 x0.30   0.30
+                                foamed milk                     1 x0.50   0.50
                                 ----------------------------------------------
                                 Total CHF                                 3.80"""
                 )
@@ -198,7 +219,7 @@ class MainTest {
 
     @ParameterizedTest
     @MethodSource
-    void shouldPrintReceiptForCoffeeWithExtraMilk(String input, String expectedReceipt) throws IOException {
+    void shouldPrintReceiptForCoffeeWithExtras(String input, String expectedReceipt) throws IOException {
         setInput(input);
 
         Main.main(new String[]{});
