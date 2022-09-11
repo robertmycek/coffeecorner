@@ -4,9 +4,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.*;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,6 +18,56 @@ class MainTest {
     private final PrintStream systemOut = System.out;
     private final InputStream systemIn = System.in;
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    private static Stream<Arguments> shouldPrintReceiptForOneProduct() {
+        return Stream.of(
+                Arguments.of(
+                        "small coffee",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                small coffee                    1 x2.50   2.50
+                                ----------------------------------------------
+                                Total CHF                                 2.50"""
+                ),
+                Arguments.of(
+                        "medium coffee",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                medium coffee                   1 x3.00   3.00
+                                ----------------------------------------------
+                                Total CHF                                 3.00"""
+                ),
+                Arguments.of(
+                        "large coffee",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                large coffee                    1 x3.50   3.50
+                                ----------------------------------------------
+                                Total CHF                                 3.50"""
+                ),
+                Arguments.of(
+                        "freshly squeezed orange juice",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                freshly squeezed orange juice   1 x3.95   3.95
+                                ----------------------------------------------
+                                Total CHF                                 3.95"""
+                ),
+                Arguments.of(
+                        "bacon roll",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                bacon roll                      1 x4.50   4.50
+                                ----------------------------------------------
+                                Total CHF                                 4.50"""
+                )
+        );
+    }
 
     @BeforeEach
     public void setUp() {
@@ -27,20 +80,14 @@ class MainTest {
         System.setIn(systemIn);
     }
 
-    @Test
-    void shouldPrintReceiptForOneSmallCoffee() throws IOException {
-        setInput("small coffee");
+    @ParameterizedTest
+    @MethodSource
+    void shouldPrintReceiptForOneProduct(String input, String expectedReceipt) throws IOException {
+        setInput(input);
 
         Main.main(new String[]{});
 
-        var expected = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                small coffee                    1 x2.50   2.50
-                ----------------------------------------------
-                Total CHF                                 2.50""";
-
-        assertEquals(expected, getOutput());
+        assertEquals(expectedReceipt, getOutput());
     }
 
     @Test
@@ -63,69 +110,6 @@ class MainTest {
         assertEquals(expected, getOutput());
     }
 
-    @Test
-    void shouldPrintReceiptForMediumCoffee() throws IOException {
-        setInput("medium coffee");
-
-        Main.main(new String[]{});
-
-        var expected = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                medium coffee                   1 x3.00   3.00
-                ----------------------------------------------
-                Total CHF                                 3.00""";
-
-        assertEquals(expected, getOutput());
-    }
-
-    @Test
-    void shouldPrintReceiptForLargeCoffee() throws IOException {
-        setInput("large coffee");
-
-        Main.main(new String[]{});
-
-        var expected = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                large coffee                    1 x3.50   3.50
-                ----------------------------------------------
-                Total CHF                                 3.50""";
-
-        assertEquals(expected, getOutput());
-    }
-
-    @Test
-    void shouldPrintReceiptForFreshlySqueezedOrangeJuice() throws IOException {
-        setInput("freshly squeezed orange juice");
-
-        Main.main(new String[]{});
-
-        var expected = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                freshly squeezed orange juice   1 x3.95   3.95
-                ----------------------------------------------
-                Total CHF                                 3.95""";
-
-        assertEquals(expected, getOutput());
-    }
-
-    @Test
-    void shouldPrintReceiptForBaconRoll() throws IOException {
-        setInput("bacon roll");
-
-        Main.main(new String[]{});
-
-        var expected = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                bacon roll                      1 x4.50   4.50
-                ----------------------------------------------
-                Total CHF                                 4.50""";
-
-        assertEquals(expected, getOutput());
-    }
 
     @Test
     void shouldGroupTheSameProductOnReceipt() throws IOException {
@@ -185,4 +169,5 @@ class MainTest {
     private String getOutput() {
         return output.toString().replace("\r", "");
     }
+
 }
