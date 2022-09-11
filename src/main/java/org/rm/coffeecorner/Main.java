@@ -38,14 +38,14 @@ public class Main {
         builder.append("Charlene's Coffee Corner").append('\n');
         builder.append("-".repeat(46)).append('\n');
 
-        var countsPerProduct = products.stream()
+        var countsByProduct = products.stream()
                 .collect(groupingBy(Function.identity(), LinkedHashMap::new, counting()));
 
         var total = BigDecimal.ZERO;
 
-        for (var countPerProduct : countsPerProduct.entrySet()) {
-            var product = countPerProduct.getKey();
-            var count = countPerProduct.getValue();
+        for (var countByProduct : countsByProduct.entrySet()) {
+            var product = countByProduct.getKey();
+            var count = countByProduct.getValue();
             var unitPrice = prices.get(product);
             var price = unitPrice.multiply(new BigDecimal(count));
             builder.append(String.format((Locale) null, "%-30.30s %2d x%4.2f %6.2f", product, count, unitPrice, price)).append('\n');
