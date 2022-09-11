@@ -34,6 +34,9 @@ public class InputParser {
                         if (product.contains("foamed milk")) {
                             products.add("foamed milk");
                         }
+                        if (product.contains("special roast")) {
+                            products.add("special roast");
+                        }
                     } else {
                         products.add(product);
                     }

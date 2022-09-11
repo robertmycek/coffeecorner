@@ -15,7 +15,8 @@ public class ReceiptFormatter {
             "freshly squeezed orange juice", new BigDecimal("3.95"),
             "bacon roll", new BigDecimal("4.50"),
             "extra milk", new BigDecimal("0.30"),
-            "foamed milk", new BigDecimal("0.50")
+            "foamed milk", new BigDecimal("0.50"),
+            "special roast", new BigDecimal("0.90")
     );
     private final List<String> products;
 

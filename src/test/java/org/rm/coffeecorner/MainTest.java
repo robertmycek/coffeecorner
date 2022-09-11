@@ -121,6 +121,28 @@ class MainTest {
                                 foamed milk                     1 x0.50   0.50
                                 ----------------------------------------------
                                 Total CHF                                 3.80"""
+                ),
+                Arguments.of(
+                        "large coffee with special roast",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                large coffee                    1 x3.50   3.50
+                                special roast                   1 x0.90   0.90
+                                ----------------------------------------------
+                                Total CHF                                 4.40"""
+                ),
+                Arguments.of(
+                        "medium coffee with special roast extra milk and foamed milk",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                medium coffee                   1 x3.00   3.00
+                                extra milk                      1 x0.30   0.30
+                                foamed milk                     1 x0.50   0.50
+                                special roast                   1 x0.90   0.90
+                                ----------------------------------------------
+                                Total CHF                                 4.70"""
                 )
         );
     }
