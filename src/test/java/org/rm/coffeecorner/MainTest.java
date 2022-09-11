@@ -96,7 +96,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        var expected = """
+        var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 small coffee                    1 x2.50   2.50
@@ -107,9 +107,8 @@ class MainTest {
                 ----------------------------------------------
                 Total CHF                                17.45""";
 
-        assertEquals(expected, getOutput());
+        assertEquals(expectedReceipt, getOutput());
     }
-
 
     @Test
     void shouldGroupTheSameProductOnReceipt() throws IOException {
@@ -117,7 +116,7 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        var expected = """
+        var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 small coffee                    3 x2.50   7.50
@@ -126,7 +125,7 @@ class MainTest {
                 ----------------------------------------------
                 Total CHF                                17.00""";
 
-        assertEquals(expected, getOutput());
+        assertEquals(expectedReceipt, getOutput());
     }
 
     @ParameterizedTest
@@ -136,30 +135,47 @@ class MainTest {
 
         Main.main(new String[]{});
 
-        var expected = """
+        var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 bacon roll                      2 x4.50   9.00
                 ----------------------------------------------
                 Total CHF                                 9.00""";
 
-        assertEquals(expected, getOutput());
+        assertEquals(expectedReceipt, getOutput());
     }
 
     @Test
-    void shouldStripInputAndRemoveEmptyVales() throws IOException {
+    void shouldStripInputAndRemoveEmptyValues() throws IOException {
         setInput(",.;:\n  bacon roll    ,  bacon roll\n     ");
 
         Main.main(new String[]{});
 
-        var expected = """
+        var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
                 bacon roll                      2 x4.50   9.00
                 ----------------------------------------------
                 Total CHF                                 9.00""";
 
-        assertEquals(expected, getOutput());
+        assertEquals(expectedReceipt, getOutput());
+    }
+
+    @Test
+    void shouldPrintReceiptForSmallCoffeeWithExtraMilk() throws IOException {
+        setInput("small coffee with extra milk");
+
+        Main.main(new String[]{});
+
+        var expectedReceipt = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                small coffee                    1 x2.50   2.50
+                extra milk                      1 x0.30   0.30
+                ----------------------------------------------
+                Total CHF                                 2.80""";
+
+        assertEquals(expectedReceipt, getOutput());
     }
 
     private void setInput(String value) {

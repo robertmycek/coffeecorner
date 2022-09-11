@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.Function;
 
-import static java.util.stream.Collectors.*;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 public class Main {
     private final Map<String, BigDecimal> prices = Map.of(
@@ -14,15 +15,26 @@ public class Main {
             "medium coffee", new BigDecimal("3.00"),
             "large coffee", new BigDecimal("3.50"),
             "freshly squeezed orange juice", new BigDecimal("3.95"),
-            "bacon roll", new BigDecimal("4.50")
+            "bacon roll", new BigDecimal("4.50"),
+            "extra milk", new BigDecimal("0.30")
+
     );
-    private final List<String> products;
+    private final List<String> products = new ArrayList<>();
 
     public Main(String input) {
-        this.products = Arrays.stream(Objects.requireNonNull(input).split("[,.;:\\n]"))
+        Arrays.stream(Objects.requireNonNull(input).split("[,.;:\\n]"))
                 .map(String::strip)
                 .filter(product -> product.length() > 0)
-                .collect(toList());
+                .forEach(product -> {
+                    if (product.contains("small coffee")) {
+                        products.add("small coffee");
+                        if (product.contains("extra milk")) {
+                            products.add("extra milk");
+                        }
+                    } else {
+                        products.add(product);
+                    }
+                });
     }
 
     public static void main(String[] args) throws IOException {
@@ -39,7 +51,7 @@ public class Main {
         builder.append("-".repeat(46)).append('\n');
 
         var countsByProduct = products.stream()
-                .collect(groupingBy(Function.identity(), LinkedHashMap::new, counting()));
+                .collect(groupingBy(identity(), LinkedHashMap::new, counting()));
 
         var total = BigDecimal.ZERO;
 
