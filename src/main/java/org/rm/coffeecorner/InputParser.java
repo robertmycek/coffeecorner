@@ -20,18 +20,14 @@ public class InputParser {
                 .map(String::strip)
                 .filter(product -> product.length() > 0)
                 .forEach(product -> {
-                    if (product.contains("small coffee")) {
-                        products.add("small coffee");
-                        if (product.contains("extra milk")) {
-                            products.add("extra milk");
+                    if (product.contains("coffee")) {
+                        if (product.contains("small")) {
+                            products.add("small coffee");
+                        } else if (product.contains("large")) {
+                            products.add("large coffee");
+                        } else {
+                            products.add("medium coffee");
                         }
-                    } else if (product.contains("medium coffee")) {
-                        products.add("medium coffee");
-                        if (product.contains("extra milk")) {
-                            products.add("extra milk");
-                        }
-                    } else if (product.contains("large coffee")) {
-                        products.add("large coffee");
                         if (product.contains("extra milk")) {
                             products.add("extra milk");
                         }
