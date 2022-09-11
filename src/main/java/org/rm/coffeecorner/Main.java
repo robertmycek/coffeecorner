@@ -17,7 +17,6 @@ public class Main {
             "freshly squeezed orange juice", new BigDecimal("3.95"),
             "bacon roll", new BigDecimal("4.50"),
             "extra milk", new BigDecimal("0.30")
-
     );
     private final List<String> products = new ArrayList<>();
 
@@ -28,6 +27,16 @@ public class Main {
                 .forEach(product -> {
                     if (product.contains("small coffee")) {
                         products.add("small coffee");
+                        if (product.contains("extra milk")) {
+                            products.add("extra milk");
+                        }
+                    } else if (product.contains("medium coffee")) {
+                        products.add("medium coffee");
+                        if (product.contains("extra milk")) {
+                            products.add("extra milk");
+                        }
+                    } else if (product.contains("large coffee")) {
+                        products.add("large coffee");
                         if (product.contains("extra milk")) {
                             products.add("extra milk");
                         }

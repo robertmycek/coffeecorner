@@ -69,6 +69,41 @@ class MainTest {
         );
     }
 
+    private static Stream<Arguments> shouldPrintReceiptForCoffeeWithExtraMilk() {
+        return Stream.of(
+                Arguments.of(
+                        "small coffee with extra milk",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                small coffee                    1 x2.50   2.50
+                                extra milk                      1 x0.30   0.30
+                                ----------------------------------------------
+                                Total CHF                                 2.80"""
+                ),
+                Arguments.of(
+                        "medium coffee with extra milk",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                medium coffee                   1 x3.00   3.00
+                                extra milk                      1 x0.30   0.30
+                                ----------------------------------------------
+                                Total CHF                                 3.30"""
+                ),
+                Arguments.of(
+                        "large coffee with extra milk",
+                        """
+                                Charlene's Coffee Corner
+                                ----------------------------------------------
+                                large coffee                    1 x3.50   3.50
+                                extra milk                      1 x0.30   0.30
+                                ----------------------------------------------
+                                Total CHF                                 3.80"""
+                )
+        );
+    }
+
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(output));
@@ -161,19 +196,12 @@ class MainTest {
         assertEquals(expectedReceipt, getOutput());
     }
 
-    @Test
-    void shouldPrintReceiptForSmallCoffeeWithExtraMilk() throws IOException {
-        setInput("small coffee with extra milk");
+    @ParameterizedTest
+    @MethodSource
+    void shouldPrintReceiptForCoffeeWithExtraMilk(String input, String expectedReceipt) throws IOException {
+        setInput(input);
 
         Main.main(new String[]{});
-
-        var expectedReceipt = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                small coffee                    1 x2.50   2.50
-                extra milk                      1 x0.30   0.30
-                ----------------------------------------------
-                Total CHF                                 2.80""";
 
         assertEquals(expectedReceipt, getOutput());
     }
