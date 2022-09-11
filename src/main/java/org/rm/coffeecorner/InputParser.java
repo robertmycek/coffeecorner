@@ -21,24 +21,35 @@ public class InputParser {
                 .filter(product -> product.length() > 0)
                 .forEach(product -> {
                     if (product.contains("coffee")) {
+
+                        boolean knownCoffeeSize = false;
+
                         if (product.contains("small")) {
                             products.add("small coffee");
+                            knownCoffeeSize = true;
                         } else if (product.contains("large")) {
                             products.add("large coffee");
-                        } else {
+                            knownCoffeeSize = true;
+                        } else if (product.contains("medium")) {
                             products.add("medium coffee");
+                            knownCoffeeSize = true;
                         }
-                        if (product.contains("extra milk")) {
-                            products.add("extra milk");
+
+                        if (knownCoffeeSize) {
+                            if (product.contains("extra milk")) {
+                                products.add("extra milk");
+                            }
+                            if (product.contains("foamed milk")) {
+                                products.add("foamed milk");
+                            }
+                            if (product.contains("special roast")) {
+                                products.add("special roast");
+                            }
                         }
-                        if (product.contains("foamed milk")) {
-                            products.add("foamed milk");
-                        }
-                        if (product.contains("special roast")) {
-                            products.add("special roast");
-                        }
-                    } else {
-                        products.add(product);
+                    } else if (product.contains("freshly squeezed orange juice")) {
+                        products.add("freshly squeezed orange juice");
+                    } else if (product.contains("bacon roll")) {
+                        products.add("bacon roll");
                     }
                 });
 

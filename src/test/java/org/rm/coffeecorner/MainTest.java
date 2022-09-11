@@ -239,6 +239,22 @@ class MainTest {
         assertEquals(expectedReceipt, getOutput());
     }
 
+    @Test
+    void shouldIgnoreUnknownProduct() throws IOException {
+        setInput("iphone 14, bacon roll");
+
+        Main.main(new String[]{});
+
+        var expectedReceipt = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                bacon roll                      1 x4.50   4.50
+                ----------------------------------------------
+                Total CHF                                 4.50""";
+
+        assertEquals(expectedReceipt, getOutput());
+    }
+
     @ParameterizedTest
     @MethodSource
     void shouldPrintReceiptForCoffeeWithExtras(String input, String expectedReceipt) throws IOException {
