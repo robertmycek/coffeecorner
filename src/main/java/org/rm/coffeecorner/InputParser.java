@@ -17,37 +17,24 @@ public class InputParser {
     public List<Product> parse() {
         var products = new ArrayList<Product>();
 
-        Arrays.stream(Objects.requireNonNull(input).split("[,.;:\\n]"))
-                .map(String::strip)
-                .filter(product -> product.length() > 0)
-                .forEach(product -> {
-                    if (product.contains("freshly squeezed orange juice")) {
+
+        Arrays.stream(input.split("[,.;:\\n]"))
+                .forEach(value -> {
+                    if (value.contains("freshly squeezed orange juice")) {
                         products.add(FRESHLY_SQUEEZED_ORANGE_JUICE);
-                    } else if (product.contains("bacon roll")) {
+                    } else if (value.contains("bacon roll")) {
                         products.add(BACON_ROLL);
-                    } else if (product.contains("coffee")) {
-
-                        boolean knownCoffeeSize = false;
-
-                        if (product.contains("small")) {
-                            products.add(SMALL_COFFEE);
-                            knownCoffeeSize = true;
-                        } else if (product.contains("medium")) {
-                            products.add(MEDIUM_COFFEE);
-                            knownCoffeeSize = true;
-                        } else if (product.contains("large")) {
-                            products.add(LARGE_COFFEE);
-                            knownCoffeeSize = true;
-                        }
-
-                        if (knownCoffeeSize) {
-                            if (product.contains("extra milk")) {
+                    } else if (value.contains("coffee")) {
+                        Product coffee = parseCoffeeSize(value);
+                        if (coffee != null) {
+                            products.add(coffee);
+                            if (value.contains("extra milk")) {
                                 products.add(EXTRA_MILK);
                             }
-                            if (product.contains("foamed milk")) {
+                            if (value.contains("foamed milk")) {
                                 products.add(FOAMED_MILK);
                             }
-                            if (product.contains("special roast")) {
+                            if (value.contains("special roast")) {
                                 products.add(SPECIAL_ROAST);
                             }
                         }
@@ -55,5 +42,17 @@ public class InputParser {
                 });
 
         return products;
+    }
+
+    private Product parseCoffeeSize(String value) {
+        if (value.contains("small")) {
+            return SMALL_COFFEE;
+        } else if (value.contains("medium")) {
+            return MEDIUM_COFFEE;
+        } else if (value.contains("large")) {
+            return LARGE_COFFEE;
+        } else {
+            return null;
+        }
     }
 }

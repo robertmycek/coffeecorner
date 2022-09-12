@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.*;
 import java.util.stream.Stream;
@@ -266,41 +265,8 @@ class MainTest {
         assertEquals(expectedReceipt, getOutput());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {",", ";", ":", "\n", "."})
-    void shouldSplitInputListBySeparator(String separator) throws IOException {
-        setInput("bacon roll" + separator + "bacon roll");
-
-        Main.main(new String[]{});
-
-        var expectedReceipt = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                bacon roll                      2 x4.50   9.00
-                ----------------------------------------------
-                Total CHF                                 9.00""";
-
-        assertEquals(expectedReceipt, getOutput());
-    }
-
     @Test
-    void shouldStripInputAndRemoveEmptyValues() throws IOException {
-        setInput(",.;:\n  bacon roll    ,  bacon roll\n     ");
-
-        Main.main(new String[]{});
-
-        var expectedReceipt = """
-                Charlene's Coffee Corner
-                ----------------------------------------------
-                bacon roll                      2 x4.50   9.00
-                ----------------------------------------------
-                Total CHF                                 9.00""";
-
-        assertEquals(expectedReceipt, getOutput());
-    }
-
-    @Test
-    void shouldIgnoreUnknownProduct() throws IOException {
+    void shouldIgnoreUnknownProducts() throws IOException {
         setInput("iphone 14, bacon roll");
 
         Main.main(new String[]{});
