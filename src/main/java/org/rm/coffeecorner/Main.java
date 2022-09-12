@@ -1,16 +1,18 @@
 package org.rm.coffeecorner;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        var input = new String(System.in.readAllBytes(), StandardCharsets.UTF_8);
+        var input = new String(System.in.readAllBytes(), UTF_8);
         var products = new InputParser(input).parse();
         var discount = new DiscountCalculator(products).calculate();
-        var receipt = new ReceiptFormatter(products, discount).format();
-        System.out.print(receipt);
+        var receipt = new ReceiptBuilder(products, discount).build();
+        var output = new ReceiptFormatter(receipt).format();
+        System.out.print(output);
         System.out.flush();
     }
 }

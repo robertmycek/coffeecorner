@@ -77,8 +77,8 @@ class MainTest {
                         """
                                 Charlene's Coffee Corner
                                 ----------------------------------------------
-                                small coffee                    1 x2.50   2.50
                                 extra milk                      1 x0.30   0.30
+                                small coffee                    1 x2.50   2.50
                                 ----------------------------------------------
                                 Total CHF                                 2.80"""
                 ),
@@ -87,8 +87,8 @@ class MainTest {
                         """
                                 Charlene's Coffee Corner
                                 ----------------------------------------------
-                                medium coffee                   1 x3.00   3.00
                                 extra milk                      1 x0.30   0.30
+                                medium coffee                   1 x3.00   3.00
                                 ----------------------------------------------
                                 Total CHF                                 3.30"""
                 ),
@@ -97,8 +97,8 @@ class MainTest {
                         """
                                 Charlene's Coffee Corner
                                 ----------------------------------------------
-                                large coffee                    1 x3.50   3.50
                                 extra milk                      1 x0.30   0.30
+                                large coffee                    1 x3.50   3.50
                                 ----------------------------------------------
                                 Total CHF                                 3.80"""
                 ),
@@ -107,8 +107,8 @@ class MainTest {
                         """
                                 Charlene's Coffee Corner
                                 ----------------------------------------------
-                                large coffee                    1 x3.50   3.50
                                 foamed milk                     1 x0.50   0.50
+                                large coffee                    1 x3.50   3.50
                                 ----------------------------------------------
                                 Total CHF                                 4.00"""
                 ),
@@ -117,9 +117,9 @@ class MainTest {
                         """
                                 Charlene's Coffee Corner
                                 ----------------------------------------------
-                                medium coffee                   1 x3.00   3.00
                                 extra milk                      1 x0.30   0.30
                                 foamed milk                     1 x0.50   0.50
+                                medium coffee                   1 x3.00   3.00
                                 ----------------------------------------------
                                 Total CHF                                 3.80"""
                 ),
@@ -138,9 +138,9 @@ class MainTest {
                         """
                                 Charlene's Coffee Corner
                                 ----------------------------------------------
-                                medium coffee                   1 x3.00   3.00
                                 extra milk                      1 x0.30   0.30
                                 foamed milk                     1 x0.50   0.50
+                                medium coffee                   1 x3.00   3.00
                                 special roast                   1 x0.90   0.90
                                 ----------------------------------------------
                                 Total CHF                                 4.70"""
@@ -178,11 +178,11 @@ class MainTest {
         var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                small coffee                    1 x2.50   2.50
-                medium coffee                   1 x3.00   3.00
-                large coffee                    1 x3.50   3.50
-                freshly squeezed orange juice   1 x3.95   3.95
                 bacon roll                      1 x4.50   4.50
+                freshly squeezed orange juice   1 x3.95   3.95
+                large coffee                    1 x3.50   3.50
+                medium coffee                   1 x3.00   3.00
+                small coffee                    1 x2.50   2.50
                 ----------------------------------------------
                 Total CHF                                17.45""";
 
@@ -190,20 +190,21 @@ class MainTest {
     }
 
     @Test
-    void shouldAddDiscountOfOneOfTheExtrasWhenCustomerOrdersBeverageAndSnack() throws IOException {
-        setInput("small coffee with extra milk, bacon roll");
+    void shouldAddDiscountOfTheCheapestExtrasWhenCustomerOrdersBeverageAndSnack() throws IOException {
+        setInput("small coffee with special roast and extra milk, bacon roll");
 
         Main.main(new String[]{});
 
         var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                small coffee                    1 x2.50   2.50
-                extra milk                      1 x0.30   0.30
                 bacon roll                      1 x4.50   4.50
+                extra milk                      1 x0.30   0.30
+                small coffee                    1 x2.50   2.50
+                special roast                   1 x0.90   0.90
                 ----------------------------------------------
                 Discount                                 -0.30
-                Total CHF                                 7.00""";
+                Total CHF                                 7.90""";
 
         assertEquals(expectedReceipt, getOutput());
     }
@@ -217,9 +218,9 @@ class MainTest {
         var expectedReceipt = """
                 Charlene's Coffee Corner
                 ----------------------------------------------
-                small coffee                    3 x2.50   7.50
-                medium coffee                   2 x3.00   6.00
                 large coffee                    1 x3.50   3.50
+                medium coffee                   2 x3.00   6.00
+                small coffee                    3 x2.50   7.50
                 ----------------------------------------------
                 Total CHF                                17.00""";
 
