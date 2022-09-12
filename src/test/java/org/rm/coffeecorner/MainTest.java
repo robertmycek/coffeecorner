@@ -210,6 +210,45 @@ class MainTest {
     }
 
     @Test
+    void shouldAddDiscountForEvery5thBeverageForCustomerWithStampCard() throws IOException {
+        //given
+        var stumpCount = "12";
+        var input = """
+                small coffee
+                medium coffee
+                large coffee
+                large coffee
+                large coffee
+                bacon roll
+                bacon roll
+                bacon roll
+                bacon roll
+                medium coffee
+                large coffee
+                medium coffee
+                large coffee""";
+
+        setInput(input);
+
+        // when
+        Main.main(new String[]{stumpCount});
+
+        // then
+        var expectedReceipt = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                bacon roll                      4 x4.50  18.00
+                large coffee                    5 x3.50  17.50
+                medium coffee                   3 x3.00   9.00
+                small coffee                    1 x2.50   2.50
+                ----------------------------------------------
+                Discount                                 -6.50
+                Total CHF                                40.50""";
+
+        assertEquals(expectedReceipt, getOutput());
+    }
+
+    @Test
     void shouldGroupTheSameProductOnReceipt() throws IOException {
         setInput("small coffee,medium coffee,large coffee,small coffee,medium coffee,small coffee");
 
