@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         var input = new String(System.in.readAllBytes(), StandardCharsets.UTF_8);
         var products = new InputParser(input).parse();
-        var receipt = new ReceiptFormatter(products).format();
+        var discount = new DiscountCalculator(products).calculate();
+        var receipt = new ReceiptFormatter(products, discount).format();
         System.out.print(receipt);
         System.out.flush();
     }

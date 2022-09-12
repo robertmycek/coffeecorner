@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class MainTest {
 
@@ -21,7 +22,7 @@ class MainTest {
 
     private static Stream<Arguments> shouldPrintReceiptForOneProduct() {
         return Stream.of(
-                Arguments.of(
+                arguments(
                         "small coffee",
                         """
                                 Charlene's Coffee Corner
@@ -30,7 +31,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 2.50"""
                 ),
-                Arguments.of(
+                arguments(
                         "medium coffee",
                         """
                                 Charlene's Coffee Corner
@@ -39,7 +40,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 3.00"""
                 ),
-                Arguments.of(
+                arguments(
                         "large coffee",
                         """
                                 Charlene's Coffee Corner
@@ -48,7 +49,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 3.50"""
                 ),
-                Arguments.of(
+                arguments(
                         "freshly squeezed orange juice",
                         """
                                 Charlene's Coffee Corner
@@ -57,7 +58,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 3.95"""
                 ),
-                Arguments.of(
+                arguments(
                         "bacon roll",
                         """
                                 Charlene's Coffee Corner
@@ -71,7 +72,7 @@ class MainTest {
 
     private static Stream<Arguments> shouldPrintReceiptForCoffeeWithExtras() {
         return Stream.of(
-                Arguments.of(
+                arguments(
                         "small coffee with extra milk",
                         """
                                 Charlene's Coffee Corner
@@ -81,7 +82,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 2.80"""
                 ),
-                Arguments.of(
+                arguments(
                         "medium coffee with extra milk",
                         """
                                 Charlene's Coffee Corner
@@ -91,7 +92,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 3.30"""
                 ),
-                Arguments.of(
+                arguments(
                         "large coffee with extra milk",
                         """
                                 Charlene's Coffee Corner
@@ -101,7 +102,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 3.80"""
                 ),
-                Arguments.of(
+                arguments(
                         "large coffee with foamed milk",
                         """
                                 Charlene's Coffee Corner
@@ -111,7 +112,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 4.00"""
                 ),
-                Arguments.of(
+                arguments(
                         "medium coffee with extra milk and foamed milk",
                         """
                                 Charlene's Coffee Corner
@@ -122,7 +123,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 3.80"""
                 ),
-                Arguments.of(
+                arguments(
                         "large coffee with special roast",
                         """
                                 Charlene's Coffee Corner
@@ -132,7 +133,7 @@ class MainTest {
                                 ----------------------------------------------
                                 Total CHF                                 4.40"""
                 ),
-                Arguments.of(
+                arguments(
                         "medium coffee with special roast extra milk and foamed milk",
                         """
                                 Charlene's Coffee Corner
@@ -184,6 +185,25 @@ class MainTest {
                 bacon roll                      1 x4.50   4.50
                 ----------------------------------------------
                 Total CHF                                17.45""";
+
+        assertEquals(expectedReceipt, getOutput());
+    }
+
+    @Test
+    void shouldAddDiscountOfOneOfTheExtrasWhenCustomerOrdersBeverageAndSnack() throws IOException {
+        setInput("small coffee with extra milk, bacon roll");
+
+        Main.main(new String[]{});
+
+        var expectedReceipt = """
+                Charlene's Coffee Corner
+                ----------------------------------------------
+                small coffee                    1 x2.50   2.50
+                extra milk                      1 x0.30   0.30
+                bacon roll                      1 x4.50   4.50
+                ----------------------------------------------
+                Discount                                 -0.30
+                Total CHF                                 7.00""";
 
         assertEquals(expectedReceipt, getOutput());
     }
