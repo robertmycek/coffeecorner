@@ -19,7 +19,7 @@ $ mvn test package
 ```
 $ java -jar target/coffeecorner-1.0.0.jar
 small coffee with extra milk
-<CTRL-Z> (or <CTRL-Z> Windows) followed by <ENTER>
+<CTRL-D> (or <CTRL-Z> Windows) followed by <ENTER>
 ```
 
 To provide your customer stamp card, add extra param like this:
